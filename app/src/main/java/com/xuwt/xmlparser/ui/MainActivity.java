@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 
 import com.xuwt.xmlparser.Entry;
+import com.xuwt.xmlparser.LoadingDialog;
 import com.xuwt.xmlparser.R;
 import com.xuwt.xmlparser.StackOverflowXmlParser;
 
@@ -30,19 +31,29 @@ public class MainActivity extends Activity {
 
     private WebView mWebView;
 
+    private LoadingDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         mWebView= (WebView) this.findViewById(R.id.webView);
+        mDialog=new LoadingDialog(MainActivity.this,null);
 
 
         new DownLoadXmlTask().execute(URL);
     }
 
     public class DownLoadXmlTask extends AsyncTask<String,Void,String>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mDialog.show();
+        }
+
         @Override
         protected String doInBackground(String... params) {
             String result;
@@ -63,6 +74,7 @@ public class MainActivity extends Activity {
 
             //mWebView.loadData(s,"text/html","utf-8");
             mWebView.loadDataWithBaseURL(null,s,"text/html","utf-8",null);
+            mDialog.cancel();
         }
     }
 
