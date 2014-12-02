@@ -1,0 +1,24 @@
+# android studio default
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+
+
+# reference   eventbus project
+.settings/
+
+*.iml
+.idea
+
+gen/
+bin/
+release/
+build/
+
+.gradle/
+gradle.properties
+
+local.properties
